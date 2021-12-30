@@ -21,7 +21,7 @@ type LocationState = {
 const Login = () => {
   const location = useLocation<LocationState>();
 
-  const { from } = location.state || { from: { pathname: '/admin' } };
+  const { from } = location.state || { from: { pathname: '/movies' } };
 
   const { setAuthContextData } = useContext(AuthContext);
 
@@ -44,7 +44,7 @@ const Login = () => {
           authenticated: true,
           tokenData: getTokenData(),
         });
-        //O relace faz retornar para a pagina anterior
+        //O replace faz retornar para a pagina anterior
         history.replace(from);
       })
       .catch((error) => {
@@ -96,17 +96,8 @@ const Login = () => {
             {errors.password?.message}
           </div>
         </div>
-        <Link to="/admin/auth/recover" className="login-link-recover">
-          Esqueci a senha
-        </Link>
         <div className="login-submit">
           <ButtonIcon text="Fazer login" />
-        </div>
-        <div className="signup-container">
-          <span className="not-registered">Não tem Cadastro?</span>
-          <Link to="/admin/auth/register" className="login-link-register">
-            CADASTRAR
-          </Link>
         </div>
       </form>
     </div>

@@ -1,11 +1,9 @@
-import { Router, Switch, Route, Redirect } from 'react-router-dom';
-import Home from 'pages/Home';
+import { Router, Switch, Route } from 'react-router-dom';
 import Navbar from 'components/Navbar';
-import Catalog from 'pages/Catalog';
-import Admin from 'pages/Admin';
-import ProductDetils from 'pages/ProductDetails';
-import Auth from 'pages/Admin/Auth';
 import history from 'util/history';
+import Auth from 'pages/Admin/Auth';
+import Movies from 'pages/Movies';
+import MoviesDetails from 'pages/MoviesDetails';
 
 const Routes = () => (
   //com o history é possivel executar  rederecionameto de rotas
@@ -13,21 +11,13 @@ const Routes = () => (
     <Navbar />
     <Switch>
       <Route path="/" exact>
-        <Home />
+       <Auth/>
       </Route>
-      <Route path="/products" exact>
-        <Catalog />
+      <Route path="/movies" exact>
+        <Movies/>
       </Route>
-      <Route path="/products/:productId">
-        <ProductDetils/>
-      </Route>
-      <Redirect from="/admin/auth" to="/admin/auth/login" exact />
-      <Route path="/admin/auth">
-        <Auth/>
-      </Route>
-      <Redirect from="/admin" to="/admin/products" exact />
-      <Route path="/admin">
-        <Admin />
+      <Route path="/movies/:moviesid">
+        <MoviesDetails/>
       </Route>
     </Switch>
   </Router>

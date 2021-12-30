@@ -26,13 +26,15 @@
 
 @media (min-width: 576px) {
   .auth-form-container {
-    width: 480px;
+    width: 479px;
+    height: 573px;
   }
 }
 
 @media (min-width: 768px) {
   .auth-form-container {
-    width: 550px;
+    width: 479px;
+    height: 573px;
   }
 }
 

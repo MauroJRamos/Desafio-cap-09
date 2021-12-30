@@ -23,7 +23,7 @@ const Users = () => {
       });
     }, []);
    
-    //Fuunçõ para renderizar um grupo de paragrafos.
+    //Função para renderizar a lista de usuários.
     return (
       <div>
         {page?.content.map((item) => (

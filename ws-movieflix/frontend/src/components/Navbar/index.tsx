@@ -8,7 +8,7 @@ import history from 'util/history';
 import { AuthContext } from 'AuthContext';
 import { getTokenData, isAuthenticated } from 'util/auth';
 import { removeAuthData } from 'util/storage';
-import ButtonIcon from 'components/ButtonIcon';
+
 
 const Navbar = () => {
   //Com o useContext o componete navBar poderá monitorar o estado global do tipo AuthContext

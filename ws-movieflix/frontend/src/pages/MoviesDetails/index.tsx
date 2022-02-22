@@ -1,15 +1,39 @@
 import { ReactComponent as UserImage } from 'assets/images/image 3.svg';
 import { AxiosRequestConfig } from 'axios';
+import { Movies } from 'types/movies';
+
 import { useEffect, useState } from 'react';
-import { Reviews } from 'types/reviews';
-import { SpringPage } from 'types/vendor/spring';
 import { hasAnyRoles } from 'util/auth';
+import { Reviews } from 'types/reviews';
+import { useParams } from 'react-router-dom';
+import './styles.css';
 import { requestBackend } from 'util/requests';
 
-import './styles.css';
+
+
+type UrlParams = {
+  movieId: string;
+};
 
 const MoviesDetails = () => {
-  const [page, setPage] = useState<SpringPage<Reviews>>();
+  const [page, setPage] = useState<Reviews[]>([]);
+
+  const { movieId } = useParams<UrlParams>();
+
+  const [movie, setMovie] = useState<Movies>();
+
+  useEffect(() => {
+    const params1: AxiosRequestConfig = {
+      url: '/movies/1',
+      withCredentials: true,
+    };
+
+    requestBackend(params1).then((response) => {
+      console.log(response);
+      setMovie(response.data);
+    });
+
+  }, [movieId]);
 
   useEffect(() => {
     const params: AxiosRequestConfig = {
@@ -18,13 +42,31 @@ const MoviesDetails = () => {
     };
 
     requestBackend(params).then((response) => {
+      console.log(response);
       setPage(response.data);
-      console.log(page);
     });
   }, []);
 
   return (
     <div className="movie-container">
+      <div className="base-card product-card">
+        <div className="card-top-container">
+          <img src={movie?.imgUrl} alt={movie?.title} />
+        </div>
+        <div className="card-bottom-container-title">
+          <h4>{movie?.title}</h4>
+        </div>
+        <div className="card-bottom-container-year">
+          <h5>{movie?.year}</h5>
+        </div>
+        <div className="card-bottom-container-sinopse">
+          <p>{movie?.subTitle}</p>
+        </div>
+        <div className='card-bottom-container-sinopse'>
+            <p>{movie?.synopsis}</p>
+        </div>
+      </div>
+
       <h1 className="">Tela detalhes do filme id:</h1>
       {hasAnyRoles(['ROLE_MEMBER']) && (
         <form className="base-card">
@@ -45,17 +87,22 @@ const MoviesDetails = () => {
       )}
 
       <div className="movie-card base-card">
-        <div className="movie-card-user">
-          <UserImage />
-          <p>Marina</p>
-        </div>
-        <div className="movie-card-text">
+        <ul>
           <div>
-            <label htmlFor="">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </label>
+            {page.map((review) => (
+              <li key={review.id}>
+                <div className="movie-card-user">
+                  <UserImage /> <p>{review.user.name} </p>
+                </div>
+                <div className="movie-card-text">
+                  <label htmlFor="">
+                    <p>{review.text}</p>
+                  </label>
+                </div>
+              </li>
+            ))}
           </div>
-        </div>
+        </ul>
       </div>
     </div>
   );

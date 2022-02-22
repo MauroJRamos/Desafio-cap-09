@@ -2,8 +2,8 @@ import { Router, Switch, Route } from 'react-router-dom';
 import Navbar from 'components/Navbar';
 import history from 'util/history';
 import Auth from 'pages/Admin/Auth';
-import Movies from 'pages/Movies';
 import MoviesDetails from 'pages/MoviesDetails';
+import MoviesList from 'pages/MoviesList';
 
 const Routes = () => (
   //com o history é possivel executar  rederecionameto de rotas
@@ -14,9 +14,9 @@ const Routes = () => (
        <Auth/>
       </Route>
       <Route path="/movies" exact>
-        <Movies/>
+        <MoviesList/>
       </Route>
-      <Route path="/movies/:moviesid">
+      <Route path="/movies/:moviesId">
         <MoviesDetails/>
       </Route>
     </Switch>
